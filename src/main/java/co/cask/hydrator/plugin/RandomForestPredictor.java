@@ -29,11 +29,11 @@ import org.apache.spark.mllib.tree.model.RandomForestModel;
  * SparkCompute that uses a trained model to tag input records using Random Forest regression.
  */
 @Plugin(type = SparkCompute.PLUGIN_TYPE)
-@Name(DecisionTreePredictor.PLUGIN_NAME)
-@Description("Uses a Decision Tree Regression model to make predictions.")
+@Name(RandomForestPredictor.PLUGIN_NAME)
+@Description("Uses a Random Forest Regression model to make predictions.")
 public class RandomForestPredictor extends SparkMLPredictor {
-  public static final String PLUGIN_NAME = "DecisionTreePredictor";
-  private DecisionTreeModel loadedModel;
+  public static final String PLUGIN_NAME = "RandomForestPredictor";
+  private RandomForestModel loadedModel;
 
   public RandomForestPredictor(MLPredictorConfig config) {
     super(config);
@@ -41,7 +41,7 @@ public class RandomForestPredictor extends SparkMLPredictor {
 
   @Override
   public void initialize(SparkContext context, String modelPath) {
-    loadedModel = DecisionTreeModel.load(context, modelPath);
+    loadedModel = RandomForestModel.load(context, modelPath);
   }
 
   @Override

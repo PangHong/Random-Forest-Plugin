@@ -1,4 +1,4 @@
-# DecisionTreePredictor
+# RandomForestPredictor
 
 
 Description

@@ -20,7 +20,7 @@ import co.cask.cdap.api.data.schema.Schema;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DecisionTreeConfigTest {
+public class RandomForestConfigTest {
   private final Schema schema =
     Schema.recordOf("flightData", Schema.Field.of("dofM", Schema.nullableOf(Schema.of(Schema.Type.INT))),
                     Schema.Field.of("dofW", Schema.nullableOf(Schema.of(Schema.Type.INT))),
@@ -43,10 +43,18 @@ public class DecisionTreeConfigTest {
 
   @Test
   public void testInvalidPredictionField() throws Exception {
-    DecisionTreeTrainer.DecisionTreeTrainerConfig config =
-      new DecisionTreeTrainer.DecisionTreeTrainerConfig("decision-tree-regression-model", "decisionTreeRegression",
-                                                        "dofM,dofW,scheduleDepTime,scheduledArrTime,carrier," +
-                                                          "elapsedTime,originId,destId", null, null, "dealyed", 100, 9);
+    RandomForestTrainer.RandomForestTrainerConfig config =
+      new RandomForestTrainer.RandomForestTrainerConfig("random-forest-regression-model",
+ "randomForestRegression",
+ "dofM,dofW,scheduleDepTime,scheduledArrTime,carrier," +
+ "elapsedTime,originId,destId",
+ null,
+ null,
+ "dealyed",
+ 3,
+ 100,
+ 9,
+ 12345);
     try {
       config.validate(schema);
     } catch (IllegalArgumentException e) {
@@ -56,11 +64,11 @@ public class DecisionTreeConfigTest {
 
   @Test
   public void testInvalidFeatures() throws Exception {
-    DecisionTreeTrainer.DecisionTreeTrainerConfig config =
-      new DecisionTreeTrainer.DecisionTreeTrainerConfig("decision-tree-regression-model", "decisionTreeRegression",
+    RandomForestTrainer.RandomForestTrainerConfig config =
+      new RandomForestTrainer.RandomForestTrainerConfig("decision-tree-regression-model", "decisionTreeRegression",
                                                         "dofM,dofW,scheduleDepTime,scheduledArrTime,carrier," +
                                                           "elapsedTime,originId,destinationId", null, null, "delayed",
-                                                        100, 9);
+                                                        3, 100, 9, 12345);
     try {
       config.validate(schema);
     } catch (IllegalArgumentException e) {
@@ -70,9 +78,9 @@ public class DecisionTreeConfigTest {
 
   @Test
   public void testIncludeAllFeatures() throws Exception {
-    DecisionTreeTrainer.DecisionTreeTrainerConfig config =
-      new DecisionTreeTrainer.DecisionTreeTrainerConfig("decision-tree-regression-model", "decisionTreeRegression",
-                                                        null, null, null, "delayed", 100, 9);
+    RandomForestTrainer.RandomForestTrainerConfig config =
+      new RandomForestTrainer.RandomForestTrainerConfig("decision-tree-regression-model", "decisionTreeRegression",
+                                                        null, null, null, "delayed", 3, 100, 9, 12345);
     try {
       config.validate(schema);
     } catch (IllegalArgumentException e) {
@@ -83,10 +91,18 @@ public class DecisionTreeConfigTest {
 
   @Test
   public void testPredictionFieldTrainer() throws Exception {
-    DecisionTreeTrainer.DecisionTreeTrainerConfig config =
-      new DecisionTreeTrainer.DecisionTreeTrainerConfig("decision-tree-regression-model", "decisionTreeRegression",
-                                                        "dofM,dofW,scheduleDepTime,scheduledArrTime,carrier," +
-                                                          "elapsedTime,originId,destId", null, null, "tailNum", 100, 9);
+    RandomForestTrainer.RandomForestTrainerConfig config =
+      new RandomForestTrainer.RandomForestTrainerConfig("decision-tree-regression-model",
+ "decisionTreeRegression",
+ "dofM,dofW,scheduleDepTime,scheduledArrTime,carrier," +
+ "elapsedTime,originId,destId",
+ null,
+ null,
+ "tailNum",
+ 3,
+ 100,
+ 9,
+ 12345);
     try {
       config.validate(schema);
     } catch (IllegalArgumentException e) {

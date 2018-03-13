@@ -37,11 +37,11 @@ import javax.annotation.Nullable;
 @Plugin(type = SparkSink.PLUGIN_TYPE)
 @Name(RandomForestTrainer.PLUGIN_NAME)
 @Description("Trains a regression model based upon a particular label and features of a record.")
-public class DecisionTreeTrainer extends SparkMLTrainer {
+public class RandomForestTrainer extends SparkMLTrainer {
   public static final String PLUGIN_NAME = "RandomForestTrainer";
   //Impurity measure of the homogeneity of the labels at the node. Expected value for regression is "variance".
   private static final String IMPURITY = "variance";
-  private static final String FEATURESUBSETSTRATEGY = "auto";// let the algorithm choose feature subset strategy
+  private static final String FEATURESUBSETSTRATEGY = "auto"; // let the algorithm choose feature subset strategy
   private RandomForestTrainerConfig config;
 
   public RandomForestTrainer(RandomForestTrainerConfig config) {
@@ -54,8 +54,16 @@ public class DecisionTreeTrainer extends SparkMLTrainer {
     Map<Integer, Integer> categoricalFeaturesInfo =
       SparkUtils.getCategoricalFeatureInfo(schema, config.featureFieldsToInclude, config.featureFieldsToExclude,
                                            config.labelField, config.cardinalityMapping);
-    final RandomForestModel model = RandomForest.trainRegressor(trainingData, categoricalFeaturesInfo, config.numTress, FEATURESUBSETSTRATEGY, IMPURITY, 
-                                                                config.maxDepth, config.maxBins, config.seed);
+
+    final RandomForestModel model = RandomForest.trainRegressor(trainingData,
+ categoricalFeaturesInfo, 
+ config.numTrees,
+ FEATURESUBSETSTRATEGY,
+ IMPURITY, 
+ config.maxDepth,
+ config.maxBins,
+ config.seed);
+
     model.save(context, outputPath);
   }
 
@@ -99,9 +107,17 @@ public class DecisionTreeTrainer extends SparkMLTrainer {
       seed = 12345;
     }
 
-    public RandomForestTrainerConfig(String fileSetName, @Nullable String path, @Nullable String featuresToInclude,
-                                     @Nullable String featuresToExclude, @Nullable String cardinalityMapping,
-                                     String labelField, @Nullable Integer numTrees, @Nullable Integer maxDepth, @Nullable Integer maxBins, @Nullable Integer seed) {
+    public RandomForestTrainerConfig(
+ String fileSetName,
+ @Nullable String path,
+ @Nullable String featuresToInclude,
+ @Nullable String featuresToExclude,
+ @Nullable String cardinalityMapping,
+ String labelField,
+ @Nullable Integer numTrees,
+ @Nullable Integer maxDepth,
+ @Nullable Integer maxBins,
+ @Nullable Integer seed) {
       super(fileSetName, path, featuresToInclude, featuresToExclude, labelField);
       this.cardinalityMapping = cardinalityMapping;
       this.numTrees = numTrees;

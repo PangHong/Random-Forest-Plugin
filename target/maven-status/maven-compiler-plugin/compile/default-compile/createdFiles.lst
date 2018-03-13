@@ -1,0 +1,10 @@
+co/cask/hydrator/plugin/SparkMLTrainer$1.class
+co/cask/hydrator/plugin/SparkMLPredictor$1.class
+co/cask/hydrator/plugin/RandomForestPredictor.class
+co/cask/hydrator/plugin/RandomForestTrainer.class
+co/cask/hydrator/plugin/SparkMLTrainer$MLTrainerConfig.class
+co/cask/hydrator/plugin/SparkMLTrainer$2.class
+co/cask/hydrator/plugin/RandomForestTrainer$RandomForestTrainerConfig.class
+co/cask/hydrator/plugin/SparkMLPredictor$MLPredictorConfig.class
+co/cask/hydrator/plugin/SparkMLPredictor.class
+co/cask/hydrator/plugin/SparkMLTrainer.class

@@ -1,4 +1,4 @@
-# DecisionTreeTrainer
+# RandomForestTrainer
 
 
 Description
@@ -7,7 +7,7 @@ Trains a regression model based upon a particular label and features of a record
 
 Use Case
 --------
-This sink can be used when you have a sample data and you want to use it to build a Decision Tree Regression model.
+This sink can be used when you have a sample data and you want to use it to build a Random Forest Regression model.
 
 Properties
 ----------
@@ -31,12 +31,15 @@ specifies the feature and its cardinality. For example, 'daysOfTheWeek:7', this 
 
 **labelField:** The field from which to get the prediction. It must be of type double.
 
+**numTrees:** Number of trees in the random forest
+
 **maxDepth:** Maximum depth of the tree.
 For example, depth 0 means 1 leaf node; depth 1 means 1 internal node + 2 leaf nodes. Default is 10.
 
 **maxBins:** Maximum number of bins used for splitting when discretizing continuous features. DecisionTree requires 
 maxBins to be at least as large as the number of values in each categorical feature. Default is 100.
 
+**seed:** Random seed for bootstrapping and choosing feature subsets.
 
 Example
 -------

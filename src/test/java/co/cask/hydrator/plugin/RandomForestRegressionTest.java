@@ -56,9 +56,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Unit tests for {@link DecisionTreeTrainer} and {@link DecisionTreePredictor} classes.
+ * Unit tests for {@link RandomForestTrainer} and {@link RandomForestPredictor} classes.
  */
-public class DecisionTreeRegressionTest extends HydratorTestBase {
+public class RandomForestRegressionTest extends HydratorTestBase {
 
   @ClassRule
   public static final TestConfiguration CONFIG = new TestConfiguration("explore.enabled", false);
@@ -91,14 +91,14 @@ public class DecisionTreeRegressionTest extends HydratorTestBase {
     setupBatchArtifacts(DATAPIPELINE_ARTIFACT_ID, DataPipelineApp.class);
     // add artifact for spark plugins
     addPluginArtifact(NamespaceId.DEFAULT.artifact("decision-tree-analytics-plugin", "1.0.0"), DATAPIPELINE_ARTIFACT_ID,
-                      DecisionTreeTrainer.class, DecisionTreePredictor.class);
+                      RandomForestTrainer.class, RandomForestPredictor.class);
   }
 
   @Test
   public void testSparkSinkAndCompute() throws Exception {
-    // use the SparkSink(DecisionTreeTrainer) to train a model
+    // use the SparkSink(RandomForestTrainer) to train a model
     testSinglePhaseWithSparkSink();
-    // use a SparkCompute(DecisionTreePredictor) to label all records going through the pipeline, using the model
+    // use a SparkCompute(RandomForestPredictor) to label all records going through the pipeline, using the model
     // build with the SparkSink
     testSinglePhaseWithSparkCompute();
   }
@@ -118,7 +118,7 @@ public class DecisionTreeRegressionTest extends HydratorTestBase {
 
     ETLBatchConfig etlConfig = ETLBatchConfig.builder("* * * * *")
       .addStage(new ETLStage("source", MockSource.getPlugin("flightRecords", getTrainerSchema(schema))))
-      .addStage(new ETLStage("customsink", new ETLPlugin(DecisionTreeTrainer.PLUGIN_NAME, SparkSink.PLUGIN_TYPE,
+      .addStage(new ETLStage("customsink", new ETLPlugin(RandomForestTrainer.PLUGIN_NAME, SparkSink.PLUGIN_TYPE,
                                                          properties, null)))
       .addConnection("source", "customsink")
       .build();
@@ -172,7 +172,7 @@ public class DecisionTreeRegressionTest extends HydratorTestBase {
     ETLBatchConfig etlConfig = ETLBatchConfig.builder("* * * * *")
       .addStage(new ETLStage("source", MockSource.getPlugin(features, schema)))
       .addStage(new ETLStage("sparkcompute",
-                             new ETLPlugin(DecisionTreePredictor.PLUGIN_NAME, SparkCompute.PLUGIN_TYPE,
+                             new ETLPlugin(RandomForestPredictor.PLUGIN_NAME, SparkCompute.PLUGIN_TYPE,
                                            ImmutableMap.of("fileSetName", "decision-tree-regression-model",
                                                            "featureFieldsToExclude", "tailNum,flightNum,origin,dest," +
                                                              "deptime,depDelayMins,arrTime,arrDelay,distance",
@@ -250,7 +250,7 @@ public class DecisionTreeRegressionTest extends HydratorTestBase {
 
     ETLBatchConfig etlConfig = ETLBatchConfig.builder("* * * * *")
       .addStage(new ETLStage("source", MockSource.getPlugin("flightRecords", getTrainerSchema(schema))))
-      .addStage(new ETLStage("customsink", new ETLPlugin(DecisionTreeTrainer.PLUGIN_NAME, SparkSink.PLUGIN_TYPE,
+      .addStage(new ETLStage("customsink", new ETLPlugin(RandomForestTrainer.PLUGIN_NAME, SparkSink.PLUGIN_TYPE,
                                                          properties, null)))
       .addConnection("source", "customsink")
       .build();

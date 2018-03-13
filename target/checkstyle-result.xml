@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.19">
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/main/java/co/cask/hydrator/plugin/SparkMLTrainer.java">
+</file>
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/main/java/co/cask/hydrator/plugin/SparkMLPredictor.java">
+</file>
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/main/java/co/cask/hydrator/plugin/RandomForestTrainer.java">
+</file>
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/main/java/co/cask/hydrator/plugin/RandomForestPredictor.java">
+</file>
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/test/java/co/cask/hydrator/plugin/RandomForestRegressionTest.java">
+</file>
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/test/java/co/cask/hydrator/plugin/RandomForestConfigTest.java">
+</file>
+<file name="/home/panghong/bigdata/random-forest-analytics/random-forest-analytics-plugin/src/test/java/co/cask/hydrator/plugin/Flight.java">
+</file>
+</checkstyle>
